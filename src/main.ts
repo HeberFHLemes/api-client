@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const button = document.getElementById("send")!;
   const input = document.getElementById("url")!;
   const output = document.getElementById("output")!;
+  const responseDiv = document.getElementById("response-div")!;
   
   button.addEventListener("click", async () => {
     const result = await sendRequest(
@@ -29,5 +30,6 @@ document.addEventListener("DOMContentLoaded", () => {
     );
     
     output.textContent = JSON.stringify(result, null, 2);
+    responseDiv.classList.remove("hidden");
   });
 });
