@@ -11,7 +11,7 @@ export default function responseForm() {
         <button id="btn-collapse" title="Toggle response"
           class="text-white text-xs px-2 py-0.5 rounded hover:bg-white/10 transition-colors select-none"
           style="font-size:16px; line-height:1;">
-          -
+          <i class="bi bi-chevron-contract"></i>
         </button>
       </div>
 

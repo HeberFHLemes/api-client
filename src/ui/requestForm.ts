@@ -1,3 +1,4 @@
+import requestHeaders from "./requestHeaders";
 import bodyEditor from "./bodyEditor";
 
 export default function requestForm() {
@@ -26,6 +27,8 @@ export default function requestForm() {
           Send
         </button>
       </div>
+
+      ${requestHeaders()}
  
       ${bodyEditor()}
  

@@ -9,8 +9,8 @@ export default function bodyEditor(): string {
           <!-- Clear button -->
           <button id="btn-clear"
             title="Clear body"
-            class="text-xs px-2 py-1 rounded border border-gray-200 bg-white hover:bg-red-50 hover:text-red-500 hover:border-red-200 transition-colors">
-            x
+            class="text-xs px-2 py-1 rounded border bg-white hover:bg-gray-100 transition-colors">
+            <i class="bi bi-x-lg"></i>
           </button>
         </div>
       </div>

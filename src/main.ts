@@ -3,6 +3,7 @@ import { sendRequest } from './api/httpClient'
 import header from './ui/header';
 import requestForm from './ui/requestForm';
 import responseForm from './ui/responseForm';
+import { row } from './ui/requestHeaders';
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   ${header()}
@@ -33,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
   btnCollapse.addEventListener("click", () => {
     isOpen = !isOpen;
     collapse.style.gridTemplateRows = isOpen ? "1fr" : "0fr";
-    btnCollapse.textContent = isOpen ? "-" : "+";
+    btnCollapse.innerHTML = isOpen ? `<i class="bi bi-chevron-contract"></i>` : `<i class="bi bi-chevron-expand"></i>`;
   });
 
   button.addEventListener("click", async () => {
@@ -52,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
       (input as HTMLInputElement).value,
       (httpMethod as HTMLSelectElement).value,
       body,
-      null
+      getHeaders()
     );
 
     output.textContent = JSON.stringify(result, null, 2);
@@ -67,4 +68,25 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("btn-clear")!.addEventListener("click", () => {
     (bodyTextarea as HTMLTextAreaElement).value = "";
   });
+
+  document.getElementById("btn-add-header")!.addEventListener("click", () => {
+    document.getElementById("headers-body")!.innerHTML += row();
+  })
+
+  document.getElementById("btn-remove-header")!.addEventListener("click", () => {
+    const table = (document.getElementById("headers-table")! as HTMLTableElement);
+    if (table.rows.length > 1) {
+      table.deleteRow(table.rows.length - 1);
+    }
+  });
 });
+
+function getHeaders(): HeadersInit | null {
+  const headers: Record<string, string> = {};
+  document.querySelectorAll('#headers-body tr').forEach(tr => {
+    const key   = (tr.querySelector('.header-key')   as HTMLInputElement).value.trim();
+    const value = (tr.querySelector('.header-value') as HTMLInputElement).value.trim();
+    if (key) headers[key] = value;
+  });
+  return Object.keys(headers).length ? headers : null;
+}
