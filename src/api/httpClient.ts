@@ -1,25 +1,26 @@
 export async function sendRequest(
   url: string,
-  httpMethod: string = "GET",
-  requestBody: object | null = null,
-  requestHeaders: HeadersInit | null = null
+  options: RequestInit
 ) {
-  const options: RequestInit = {
-    method: httpMethod,
-    headers: requestHeaders ?? {
-      "Content-Type": "application/json",
-    },
-  };
+  try {
+    const res = await fetch(url, options);
 
-  if (requestBody && httpMethod !== "GET") {
-    options.body = JSON.stringify(requestBody);
+    let data;
+    try {
+      data = await res.json();
+    } catch {
+      data = await res.text();
+    }
+
+    return {
+      status: res.status,
+      data,
+    };
+
+  } catch (err) {
+    return {
+      status: 0,
+      data: { error: "Network error", details: String(err) },
+    };
   }
-
-  const res = await fetch(url, options);
-  const data = await res.json();
-
-  return {
-    status: res.status,
-    data,
-  };
 }

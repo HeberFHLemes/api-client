@@ -6,7 +6,6 @@ export default function bodyEditor(): string {
           <span class="text-xs font-semibold uppercase tracking-widest">Body</span>
         </div>
         <div class="flex items-center gap-1">
-          <!-- Clear button -->
           <button id="btn-clear"
             title="Clear body"
             class="text-xs px-2 py-1 rounded border bg-white hover:bg-gray-100 transition-colors">
@@ -16,7 +15,6 @@ export default function bodyEditor(): string {
       </div>
  
       <div class="flex" id="textarea-flex-div">
-        <!-- Textarea -->
         <textarea
           id="body-textarea"
           spellcheck="false"
